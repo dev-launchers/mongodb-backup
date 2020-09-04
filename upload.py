@@ -24,7 +24,7 @@ def upload():
 			'name': f,
 			'parents': [folder_id],
 		}
-		abs_file_name = os.path(dump_dir, f)
+		abs_file_name = os.path.join(dump_dir, f)
 		media = MediaFileUpload(abs_file_name)
 		drive_service.files().create(body=file_metadata, media_body=media, fields='id').execute()
 	
