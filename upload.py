@@ -17,13 +17,15 @@ def upload():
 	}
 	folder = drive_service.files().create(body=folder_meta, fields='id').execute()
 	folder_id = folder.get('id')
-	backup_file_names = os.listdir(os.environ['DUMP_DIR'])
+	dump_dir = os.environ['DUMP_DIR']
+	backup_file_names = os.listdir(dump_dir)
 	for f in backup_file_names:
 		file_metadata = {
 			'name': f,
 			'parents': [folder_id],
 		}
-		media = MediaFileUpload(f)
+		abs_file_name = os.path(dump_dir, f)
+		media = MediaFileUpload(abs_file_name)
 		drive_service.files().create(body=file_metadata, media_body=media, fields='id').execute()
 	
 
