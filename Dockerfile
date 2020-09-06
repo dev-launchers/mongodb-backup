@@ -4,5 +4,5 @@ RUN apt-get install -y python3-pip
 RUN pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 WORKDIR /backup
 COPY backup.sh /usr/local/bin/
-COPY upload.py .
+COPY backup.py .
 ENTRYPOINT ["backup.sh"]
