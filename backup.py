@@ -59,9 +59,10 @@ def remove_old_folders(drive_service):
     q = "createdTime < '{}' and mimeType = '{}' and '{}' in parents".format(
         no_older_than.strftime("%Y-%m-%dT-%H:%M"), FOLDER_MIME, os.environ['ROOT_FOLDER_ID'])
     files = drive_service.files().list(
-        spaces='drive', fields='files(id)', q=q).execute()
+        spaces='drive', fields='files(name, id)', q=q).execute()
     for f in files:
         drive_service.files().delete(fileId=f.get('id')).execute()
+        print("deleted {}".format(f.get('name')))
 
 
 if __name__ == '__main__':
